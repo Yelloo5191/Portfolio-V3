@@ -1,1 +1,6 @@
 /* Global Styling here */
+
+mark {
+  background-color: transparent;
+  color: var(--chakra-colors-secondary-dark);
+}
