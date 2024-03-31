@@ -2,5 +2,15 @@
 
 mark {
   background-color: transparent;
+  color: var(--chakra-colors-secondary);
+}
+
+/* For dark mode */
+[data-theme='dark'] mark {
   color: var(--chakra-colors-secondary-dark);
+}
+
+/* For light mode */
+[data-theme='light'] mark {
+  color: var(--chakra-colors-secondary-light);
 }

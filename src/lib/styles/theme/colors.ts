@@ -20,6 +20,7 @@ const extendedColors: DeepPartial<
 const customColors = {
   secondary: {
     dark: '#f0e68c',
+    light: '#8963c7',
   },
 };
 
