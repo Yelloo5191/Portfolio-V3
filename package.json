@@ -6,17 +6,17 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "build:turbo": "pnpm dlx turbo@latest run build",
+    "build:turbo": "npm dlx turbo@latest run build",
     "postbuild": "next-sitemap --config next-sitemap.config.js",
     "start": "next start",
     "lint": "next lint",
-    "lint:fix": "eslint src --fix && pnpm format",
+    "lint:fix": "eslint src --fix && npm format",
     "type-check": "tsc --noEmit",
-    "check:turbo": "pnpm dlx turbo@latest lint type-check",
+    "check:turbo": "npm dlx turbo@latest lint type-check",
     "test:e2e": "playwright test",
     "format": "prettier --write src",
-    "up-interactive": "pnpm up -i",
-    "up-latest": "pnpm up-interactive -L",
+    "up-interactive": "npm up -i",
+    "up-latest": "npm up-interactive -L",
     "release": "cross-env HUSKY=0 standard-version",
     "push-release": "git push --follow-tags origin main",
     "prepare": "husky"
@@ -27,6 +27,7 @@
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.0",
     "framer-motion": "^11.0.14",
+    "gsap": "^3.12.5",
     "next": "^14.1.3",
     "next-pwa": "^5.6.0",
     "react": "^18.2.0",
@@ -53,6 +54,6 @@
   },
   "engines": {
     "node": ">=16.x.x",
-    "pnpm": ">=8"
+    "npm": ">=8"
   }
 }

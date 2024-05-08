@@ -1,1 +1,1 @@
-pnpm check:turbo
+npm check:turbo

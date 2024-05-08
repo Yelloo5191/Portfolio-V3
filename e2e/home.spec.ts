@@ -1,6 +1,6 @@
 /**
  * @note
- * - make sure local dev environment is ready (pnpm dev)
+ * - make sure local dev environment is ready (npm dev)
  */
 
 import { test, expect } from '@playwright/test';

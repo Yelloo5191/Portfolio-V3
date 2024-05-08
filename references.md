@@ -7,8 +7,8 @@
 
 ## How to Run e2e Test (in local machine)
 
-1. Build production with `pnpm build`, then run the production build using `pnpm start`.
-2. Open another terminal (or new terminal tab, don't cancel / close the production server), then run the test with `pnpm test:e2e`.
+1. Build production with `npm build`, then run the production build using `npm start`.
+2. Open another terminal (or new terminal tab, don't cancel / close the production server), then run the test with `npm test:e2e`.
 
 References:
 

@@ -33,7 +33,7 @@
 ## Pre-requisites
 
 1. [Node.js](https://nodejs.org/en/) or nvm installed.
-2. `pnpm` installed.
+2. `npm` installed.
 
 ## Getting Started
 
@@ -43,12 +43,12 @@
 npx degit sozonome/nextarter-chakra <YOUR_APP_NAME>
 ```
 
-2. After cloning the project, run this command: `pnpm` or `pnpm install`
+2. After cloning the project, run this command: `npm` or `npm install`
 
 3. Then, run the development server:
 
 ```bash
-pnpm dev
+npm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
