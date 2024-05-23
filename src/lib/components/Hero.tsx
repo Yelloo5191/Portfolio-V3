@@ -1,7 +1,7 @@
 'use client';
 
 import { Box, Button, Grid, Heading, Text } from '@chakra-ui/react';
-import { AsciiRenderer, TrackballControls } from '@react-three/drei';
+import { TrackballControls, AsciiRenderer } from '@react-three/drei';
 import { Canvas, extend, useFrame } from '@react-three/fiber';
 import { LazyMotion, domAnimation, useInView, motion } from 'framer-motion';
 import { gsap } from 'gsap';
@@ -53,7 +53,7 @@ const MyTorus = () => {
       castShadow
       ref={torusRef}
     >
-      <torusGeometry args={[5, 2, 128, 100]} />
+      <torusGeometry args={[5, 2, 30, 200]} />
       <meshStandardMaterial color="yellow" />
     </mesh>
   );
@@ -91,13 +91,18 @@ const Hero = () => {
           camera={{
             position: [-6, 7, 7],
           }}
-          style={{ height: '25vh', marginBottom: '2rem' }}
+          style={{
+            height: '50vh',
+            marginBottom: '2rem',
+            width: '100%',
+            color: 'red',
+          }}
         >
           <AsciiRenderer />
           <TrackballControls />
 
           <ambientLight intensity={0.5} />
-          <pointLight position={[0, 0, 0]} intensity={7} />
+          <pointLight position={[0, 0, 0]} intensity={4} />
           <MyTorus />
         </Canvas>
       </motion.div>

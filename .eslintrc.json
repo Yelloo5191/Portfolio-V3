@@ -8,6 +8,7 @@
     "react/no-unknown-property": [
       1,
       { "ignore": ["args", "rotation", "position", "castShadow", "intensity"] }
-    ]
+    ],
+    "react/prop-types": "off"
   }
 }
