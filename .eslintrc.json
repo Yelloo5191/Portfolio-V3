@@ -3,5 +3,11 @@
     "sznm/react",
     "plugin:react/jsx-runtime",
     "plugin:@next/next/recommended"
-  ]
+  ],
+  "rules": {
+    "react/no-unknown-property": [
+      1,
+      { "ignore": ["args", "rotation", "position", "castShadow", "intensity"] }
+    ]
+  }
 }
