@@ -12,38 +12,48 @@ import {
 import { motion } from 'framer-motion';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
+import NextLink from 'next/link';
 import { useEffect, useRef } from 'react';
 
 const tempimg = 'https://via.placeholder.com/256';
 const ProjectList = [
   {
-    name: 'Sextuplets',
-    description: '6 people',
+    name: 'Melo',
+    description:
+      'A music discovery platform that helps you find new music based on your listening habits.',
+    image: 'https://i.imgur.com/m0ykvDs.jpeg',
+    href: 'https://melo-plum.vercel.app/',
+  },
+  {
+    name: 'School/Programming Simplified',
+    description:
+      'Collaborated on creating a website and Discord bot for School Simplified and its CS division, Programming Simplified.',
+    image:
+      'https://media.licdn.com/dms/image/C4D0BAQFIbgnXrEeM3w/company-logo_200_200/0/1641607280493/school_simplified_logo?e=1724889600&v=beta&t=1w0HgkamnDRvff7BUemsJNjiHiH7nS7jIndl8NZ-geg',
+  },
+  {
+    name: 'Ghastly Dungeons',
+    description:
+      'A small black and white game for the Black and White Jam #0.(9).',
+    image: 'https://img.itch.zone/aW1nLzkzMjI5NTAucG5n/347x500/bgD1nC.png',
+    href: 'https://yelloo.itch.io/ghastly-dungeons',
+  },
+  {
+    name: 'Pysweeper',
+    description: 'A minesweeper clone made with python and pygame.',
     image: tempimg,
+    href: 'https://github.com/Yelloo5191/Minesweeper',
+  },
+  {
+    name: 'SlugConnect',
+    description:
+      'CruzHacks 2022 demo project. A social media platform for UCSC students.',
+    image: tempimg,
+    href: 'https://slug-connect.vercel.app/',
   },
   {
     name: 'Octuplets',
     description: '8 people',
-    image: tempimg,
-  },
-  {
-    name: 'Decuplets',
-    description: '10 people',
-    image: tempimg,
-  },
-  {
-    name: 'Sextuplets',
-    description: '6 people',
-    image: tempimg,
-  },
-  {
-    name: 'Octuplets',
-    description: '8 people',
-    image: tempimg,
-  },
-  {
-    name: 'Decuplets',
-    description: '10 people',
     image: tempimg,
   },
 ];
@@ -98,7 +108,7 @@ const Projects = () => {
   }, []);
 
   return (
-    <Grid textAlign="center" id="projects">
+    <Grid textAlign="center" id="projects" minH="100vh" alignContent="center">
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -109,7 +119,12 @@ const Projects = () => {
         </Heading>
       </motion.div>
 
-      <Grid gap={4} templateColumns="repeat(3, 1fr)">
+      {/* desktop view */}
+      <Grid
+        gap={4}
+        templateColumns="repeat(3, 1fr)"
+        display={{ base: 'none', md: 'grid' }}
+      >
         {ProjectList.map((project, index) => (
           <Box
             key={project.name}
@@ -118,24 +133,80 @@ const Projects = () => {
             }}
             className="project"
           >
-            <Image src={project.image} alt={project.name} border={5} />
+            <Image
+              src={project.image}
+              alt={project.name}
+              border={5}
+              width="100%"
+            />
             <Box
               m={0}
               border={1}
               p={4}
               borderRadius="md"
+              borderTopRadius={0}
               borderStyle="solid"
               borderColor={
                 colorMode === 'light' ? 'secondary.light' : 'secondary.dark'
               }
-              width={64}
-              height={32}
+              height={48}
             >
               <Heading as="h2" size="md">
                 {project.name}
               </Heading>
               <Text>{project.description}</Text>
-              <Button>View Project</Button>
+              {project?.href && (
+                <NextLink href={project.href} target="_blank" passHref>
+                  <Button>View Project</Button>
+                </NextLink>
+              )}
+            </Box>
+          </Box>
+        ))}
+      </Grid>
+
+      {/* mobile view */}
+      <Grid
+        gap={4}
+        templateColumns="repeat(1, 1fr)"
+        display={{ base: 'grid', md: 'none' }}
+      >
+        {ProjectList.map((project, index) => (
+          <Box
+            key={project.name}
+            ref={(el: HTMLDivElement) => {
+              projectsRef.current[index] = el;
+            }}
+            className="project"
+          >
+            <Image
+              src={project.image}
+              alt={project.name}
+              border={5}
+              width="100%"
+              height="auto"
+            />
+            <Box
+              m={0}
+              border={1}
+              p={4}
+              borderRadius="md"
+              borderTopRadius={0}
+              borderStyle="solid"
+              borderColor={
+                colorMode === 'light' ? 'secondary.light' : 'secondary.dark'
+              }
+              height={48}
+            >
+              <Heading as="h2" size="md">
+                {project.name}
+              </Heading>
+              <Text>{project.description}</Text>
+              {project?.href && (
+                <NextLink href={project.href} target="_blank" passHref>
+                  <Button>View Project</Button>
+                </NextLink>
+              )}
             </Box>
           </Box>
         ))}

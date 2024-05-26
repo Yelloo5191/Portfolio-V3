@@ -112,7 +112,7 @@ const Hero = () => {
         animate={{ opacity: 1 }}
         transition={{ duration: 2 }}
       >
-        <Heading as="h1" size="lg">
+        <Heading as="h1" size="lg" textAlign="left">
           Hi I&apos;m <mark>Hovhannes</mark>, a <mark>software engineer</mark>.
         </Heading>
       </motion.div>
@@ -147,7 +147,7 @@ const Hero = () => {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 2, duration: 4 }}
+          transition={{ delay: 1, duration: 4 }}
         >
           <Button
             size="lg"

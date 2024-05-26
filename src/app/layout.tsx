@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 import type { Metadata, Viewport } from 'next';
 
 import Providers from '~/app/providers';
@@ -12,6 +13,12 @@ const APP_NAME = 'nextarter-chakra';
 export const metadata: Metadata = {
   title: 'Hovhannes - Developer',
   description: 'A website built to showcase my skills and abilities.',
+  icons: [
+    {
+      url: '/favicon.ico',
+      sizes: '48x48 72x72 96x96 128x128 256x256',
+    },
+  ],
   applicationName: APP_NAME,
   appleWebApp: {
     capable: true,
@@ -25,15 +32,13 @@ export const metadata: Metadata = {
     url: 'hovhannes.org',
     title: 'Hovhannes - Developer',
     description: 'A website built to showcase my skills and abilities.',
-    images: {
-      url: 'https://og-image.sznm.dev/**nextarter-chakra**.sznm.dev.png?theme=dark&md=1&fontSize=125px&images=https%3A%2F%2Fsznm.dev%2Favataaars.svg&widths=250',
-      alt: 'nextarter-chakra.sznm.dev og-image',
-    },
+    images: [
+      {
+        url: 'https://i.imgur.com/sl8YKNr.png',
+        alt: 'Hovhannes - Developer',
+      },
+    ],
   },
-  // twitter: {
-  //   creator: '@sozonome',
-  //   card: 'summary_large_image',
-  // },
 };
 
 export const viewport: Viewport = {
