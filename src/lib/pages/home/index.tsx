@@ -2,6 +2,7 @@ import { Flex } from '@chakra-ui/react';
 
 import Hero from '~/lib/components/Hero';
 import Projects from '~/lib/components/Projects';
+import Skills from '~/lib/components/Skills';
 
 import '../../styles/globals.css';
 
@@ -17,6 +18,7 @@ const Home = () => {
       w="full"
     >
       <Hero />
+      <Skills />
       <Projects />
     </Flex>
   );

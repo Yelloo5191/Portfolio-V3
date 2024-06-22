@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, Button, Grid, Heading, Text } from '@chakra-ui/react';
+import { Box, Button, Grid, Heading } from '@chakra-ui/react';
 import { TrackballControls, AsciiRenderer } from '@react-three/drei';
 import { Canvas, extend, useFrame } from '@react-three/fiber';
 import { LazyMotion, domAnimation, useInView, motion } from 'framer-motion';
@@ -123,9 +123,9 @@ const Hero = () => {
           animate={{ opacity: 1 }}
           transition={{ delay: 1, duration: 2 }}
         >
-          <Text
+          <Heading
             ref={ref}
-            className="text-[17px] md:text-2xl"
+            fontSize="5xl"
             style={{
               opacity: isInView ? 1 : 0,
               transition: 'opacity 1s ease',
@@ -135,7 +135,7 @@ const Hero = () => {
             <LazyMotion features={domAnimation}>
               <TextElement key={count} element={text[count]} />
             </LazyMotion>
-          </Text>
+          </Heading>
         </motion.div>
       </Box>
 
@@ -154,12 +154,12 @@ const Hero = () => {
             onClick={() => {
               gsap.to(window, {
                 duration: 1,
-                scrollTo: '#projects',
+                scrollTo: '#skills',
                 // ease: 'power2.inOut',
               });
             }}
           >
-            My Creations
+            But who am I?
           </Button>
         </motion.div>
       </Box>

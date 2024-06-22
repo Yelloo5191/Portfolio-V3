@@ -10,12 +10,11 @@ import {
   Image,
 } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/all';
+// import { isInView } from 'framer-motion';
 import NextLink from 'next/link';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 
-const tempimg = 'https://via.placeholder.com/256';
+// const tempimg = 'https://via.placeholder.com/256';
 const ProjectList = [
   {
     name: 'Melo',
@@ -41,71 +40,68 @@ const ProjectList = [
   {
     name: 'Pysweeper',
     description: 'A minesweeper clone made with python and pygame.',
-    image: tempimg,
+    image: 'https://i.imgur.com/98g6a7X.png',
     href: 'https://github.com/Yelloo5191/Minesweeper',
   },
   {
     name: 'SlugConnect',
     description:
       'CruzHacks 2022 demo project. A social media platform for UCSC students.',
-    image: tempimg,
+    image: 'https://i.imgur.com/p6A2bsr.png',
     href: 'https://slug-connect.vercel.app/',
-  },
-  {
-    name: 'Octuplets',
-    description: '8 people',
-    image: tempimg,
   },
 ];
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const AnimatedProjectBox = ({ project, index, colorMode }: any) => {
+  const ref = useRef(null);
+  //   const isInView = useInView(ref, { once: true });
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, x: -50 }}
+      //   animate={isInView ? { opacity: 1, x: 0 } : {}}
+      transition={{ duration: 0.5, delay: index * 0.2 }}
+      whileInView={{ opacity: 1, x: 0 }}
+    >
+      <Box className="project">
+        <Image
+          src={project.image}
+          alt={project.name}
+          border={5}
+          width="auto"
+          height="256px"
+        />
+        <Box
+          m={0}
+          border={1}
+          p={4}
+          borderRadius="md"
+          borderTopRadius={0}
+          borderStyle="solid"
+          borderColor={
+            colorMode === 'light' ? 'secondary.light' : 'secondary.dark'
+          }
+          height={48}
+        >
+          <Heading as="h2" size="md">
+            {project.name}
+          </Heading>
+          <Text>{project.description}</Text>
+          {project?.href && (
+            <NextLink href={project.href} target="_blank" passHref>
+              <Button>View Project</Button>
+            </NextLink>
+          )}
+        </Box>
+      </Box>
+    </motion.div>
+  );
+};
+
 const Projects = () => {
   const { colorMode } = useColorMode();
-  const projectsRef: React.MutableRefObject<HTMLDivElement[]> = useRef([]);
-
-  useEffect(() => {
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: '.project',
-        start: 'top bottom-=100',
-        toggleActions: 'play none none none',
-      },
-    });
-
-    projectsRef.current.forEach((project, index) => {
-      const animation = gsap.fromTo(
-        project,
-        { opacity: 0, y: 100 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          ease: 'power1.inOut',
-        }
-      );
-
-      ScrollTrigger.create({
-        trigger: project,
-        start: 'top bottom-=100',
-        onEnter: () => {
-          animation.play();
-        },
-      });
-
-      tl.add(animation, index * 0.2);
-    });
-
-    // Custom scroll event listener to control animation speed
-    const handleScroll = () => {
-      const scrollVelocity = Math.abs(window.scrollY - tl.time()) * 0.1;
-      tl.timeScale(Math.min(1, scrollVelocity));
-    };
-
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
 
   return (
     <Grid textAlign="center" id="projects" minH="100vh" alignContent="center">
@@ -126,42 +122,12 @@ const Projects = () => {
         display={{ base: 'none', md: 'grid' }}
       >
         {ProjectList.map((project, index) => (
-          <Box
+          <AnimatedProjectBox
             key={project.name}
-            ref={(el: HTMLDivElement) => {
-              projectsRef.current[index] = el;
-            }}
-            className="project"
-          >
-            <Image
-              src={project.image}
-              alt={project.name}
-              border={5}
-              width="100%"
-            />
-            <Box
-              m={0}
-              border={1}
-              p={4}
-              borderRadius="md"
-              borderTopRadius={0}
-              borderStyle="solid"
-              borderColor={
-                colorMode === 'light' ? 'secondary.light' : 'secondary.dark'
-              }
-              height={48}
-            >
-              <Heading as="h2" size="md">
-                {project.name}
-              </Heading>
-              <Text>{project.description}</Text>
-              {project?.href && (
-                <NextLink href={project.href} target="_blank" passHref>
-                  <Button>View Project</Button>
-                </NextLink>
-              )}
-            </Box>
-          </Box>
+            project={project}
+            index={index}
+            colorMode={colorMode}
+          />
         ))}
       </Grid>
 
@@ -172,43 +138,12 @@ const Projects = () => {
         display={{ base: 'grid', md: 'none' }}
       >
         {ProjectList.map((project, index) => (
-          <Box
+          <AnimatedProjectBox
             key={project.name}
-            ref={(el: HTMLDivElement) => {
-              projectsRef.current[index] = el;
-            }}
-            className="project"
-          >
-            <Image
-              src={project.image}
-              alt={project.name}
-              border={5}
-              width="100%"
-              height="auto"
-            />
-            <Box
-              m={0}
-              border={1}
-              p={4}
-              borderRadius="md"
-              borderTopRadius={0}
-              borderStyle="solid"
-              borderColor={
-                colorMode === 'light' ? 'secondary.light' : 'secondary.dark'
-              }
-              height={48}
-            >
-              <Heading as="h2" size="md">
-                {project.name}
-              </Heading>
-              <Text>{project.description}</Text>
-              {project?.href && (
-                <NextLink href={project.href} target="_blank" passHref>
-                  <Button>View Project</Button>
-                </NextLink>
-              )}
-            </Box>
-          </Box>
+            project={project}
+            index={index}
+            colorMode={colorMode}
+          />
         ))}
       </Grid>
     </Grid>
