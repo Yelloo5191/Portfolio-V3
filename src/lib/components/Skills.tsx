@@ -49,13 +49,7 @@ const Skills = () => {
   const { colorMode } = useColorMode();
 
   return (
-    <Box
-      textAlign="center"
-      alignContent="center"
-      id="skills"
-      minH="100vh"
-      p={8}
-    >
+    <Box textAlign="center" alignContent="center" id="skills" minH="100vh">
       <VStack spacing={8}>
         {/* About Me Section */}
         <motion.div

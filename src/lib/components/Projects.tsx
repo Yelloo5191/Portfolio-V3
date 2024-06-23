@@ -65,26 +65,24 @@ const AnimatedProjectBox = ({ project, index, colorMode }: any) => {
       transition={{ duration: 0.5, delay: index * 0.2 }}
       whileInView={{ opacity: 1, x: 0 }}
     >
-      <Box className="project">
+      <Box
+        className="project"
+        border={1}
+        borderStyle="solid"
+        borderColor={
+          colorMode === 'light' ? 'secondary.light' : 'secondary.dark'
+        }
+        borderRadius="md"
+        overflow="hidden"
+      >
         <Image
           src={project.image}
           alt={project.name}
           border={5}
-          width="auto"
-          height="256px"
+          width={{ base: '100%', md: 'auto' }}
+          height={{ base: 'auto', md: '256px' }}
         />
-        <Box
-          m={0}
-          border={1}
-          p={4}
-          borderRadius="md"
-          borderTopRadius={0}
-          borderStyle="solid"
-          borderColor={
-            colorMode === 'light' ? 'secondary.light' : 'secondary.dark'
-          }
-          height={48}
-        >
+        <Box m={0} p={4} borderTopRadius={0} height={48}>
           <Heading as="h2" size="md">
             {project.name}
           </Heading>
