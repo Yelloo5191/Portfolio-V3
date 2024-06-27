@@ -24,9 +24,9 @@ const Splash = ({ finishLoading }: { finishLoading: () => void }) => {
     });
 
     // fade out splash div
-    timeline.to('.splash', {
+    timeline.to('.fadeout', {
       duration: 1,
-      opacity: 0,
+      autoAlpha: 0,
       ease,
     });
   };
@@ -45,24 +45,33 @@ const Splash = ({ finishLoading }: { finishLoading: () => void }) => {
       alignItems="center"
       height="100vh"
     >
-      <div
+      {/* <div
         className="splash"
         style={{
           backgroundImage: 'url(/circle.png)',
           width: '200px',
           height: '200px',
           backgroundPosition: 'center',
-          backgroundSize: 'cover',
+          //   backgroundSize: 'cover',
         }}
-      >
-        <Image
-          className="antiSpin"
-          src="/h.png"
-          alt="Logo"
-          width="200px"
-          height="200px"
-        />
-      </div>
+      /> */}
+      <Image
+        className="splash fadeout"
+        src="/circle.png"
+        alt="Logo"
+        width="200px"
+        height="200px"
+        position="absolute"
+      />
+
+      <Image
+        className="antiSpin fadeout"
+        src="/h.png"
+        alt="Logo"
+        width="200px"
+        height="200px"
+        position="absolute"
+      />
     </Box>
   );
 };
