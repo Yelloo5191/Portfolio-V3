@@ -50,6 +50,13 @@ const ProjectList = [
     image: 'https://i.imgur.com/p6A2bsr.png',
     href: 'https://slug-connect.vercel.app/',
   },
+  {
+    name: 'Delaygram',
+    description:
+      "A simple Instagram clone made with Flask and Sqlite for Harvard's CS50 final project.",
+    image: 'https://i.imgur.com/9gp2u1f.png',
+    href: 'https://github.com/Yelloo5191/Delaygram',
+  },
 ];
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
