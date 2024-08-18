@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, Button, Grid, Heading } from '@chakra-ui/react';
+import { Box, Button, Grid, Heading, useColorMode } from '@chakra-ui/react';
 import { TrackballControls, AsciiRenderer } from '@react-three/drei';
 import { Canvas, extend, useFrame } from '@react-three/fiber';
 import { LazyMotion, domAnimation, useInView, motion } from 'framer-motion';
@@ -65,6 +65,7 @@ const Hero = () => {
 
   const [count, setCount] = useState(0);
   const [text] = useState(['design.', 'develop.', 'create.']);
+  const { colorMode } = useColorMode();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -89,16 +90,19 @@ const Hero = () => {
         <Canvas
           shadows
           camera={{
-            position: [-6, 7, 7],
+            position: [-8, -8, -8],
           }}
           style={{
             height: '50vh',
             marginBottom: '2rem',
             width: '100%',
-            color: 'red',
           }}
         >
-          <AsciiRenderer />
+          {colorMode === 'light' ? (
+            <AsciiRenderer bgColor="white" fgColor="black" invert={false} />
+          ) : (
+            <AsciiRenderer bgColor="#1a202c" fgColor="white" invert={false} />
+          )}
           <TrackballControls />
 
           <ambientLight intensity={0.5} />
