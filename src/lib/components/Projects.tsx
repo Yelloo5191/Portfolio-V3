@@ -31,6 +31,14 @@ const ProjectList = [
       'https://media.licdn.com/dms/image/C4D0BAQFIbgnXrEeM3w/company-logo_200_200/0/1641607280493/school_simplified_logo?e=1724889600&v=beta&t=1w0HgkamnDRvff7BUemsJNjiHiH7nS7jIndl8NZ-geg',
   },
   {
+    name: 'RetroTekken Fighter',
+    description:
+      'Mini fighting game with the style of retro fighters made in Python with Pygame.',
+    image:
+      'https://github.com/Yelloo5191/RetroFighter/blob/master/fighter.png?raw=true',
+    href: 'https://github.com/Yelloo5191/RetroFighter',
+  },
+  {
     name: 'Ghastly Dungeons',
     description:
       'A small black and white game for the Black and White Jam #0.(9).',
@@ -50,6 +58,7 @@ const ProjectList = [
     image: 'https://i.imgur.com/p6A2bsr.png',
     href: 'https://slug-connect.vercel.app/',
   },
+  {},
   {
     name: 'Delaygram',
     description:
@@ -63,6 +72,10 @@ const ProjectList = [
 const AnimatedProjectBox = ({ project, index, colorMode }: any) => {
   const ref = useRef(null);
   //   const isInView = useInView(ref, { once: true });
+
+  if (project.name === undefined) {
+    return <Box />;
+  }
 
   return (
     <motion.div
@@ -81,12 +94,13 @@ const AnimatedProjectBox = ({ project, index, colorMode }: any) => {
         }
         borderRadius="md"
         overflow="hidden"
+        width="100%"
       >
         <Image
           src={project.image}
           alt={project.name}
           border={5}
-          width={{ base: '100%', md: 'auto' }}
+          width={{ base: '100%', md: '256px' }}
           height={{ base: 'auto', md: '256px' }}
         />
         <Box m={0} p={4} borderTopRadius={0} height={48}>
@@ -123,7 +137,7 @@ const Projects = () => {
       {/* desktop view */}
       <Grid
         gap={4}
-        templateColumns="repeat(3, 1fr)"
+        templateColumns="repeat(3, 256px)"
         display={{ base: 'none', md: 'grid' }}
       >
         {ProjectList.map((project, index) => (
