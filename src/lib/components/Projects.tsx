@@ -28,7 +28,7 @@ const ProjectList = [
     description:
       'Collaborated on creating a website and Discord bot for School Simplified and its CS division, Programming Simplified.',
     image:
-      'https://media.licdn.com/dms/image/C4D0BAQFIbgnXrEeM3w/company-logo_200_200/0/1641607280493/school_simplified_logo?e=1724889600&v=beta&t=1w0HgkamnDRvff7BUemsJNjiHiH7nS7jIndl8NZ-geg',
+      'https://media.licdn.com/dms/image/v2/C4D0BAQFIbgnXrEeM3w/company-logo_200_200/company-logo_200_200/0/1641607280493/school_simplified_logo?e=2147483647&v=beta&t=UTbwsYE1W0RFRUyYKDkRQyoRCON6c7NzYj3gScfit1c',
   },
   {
     name: 'RetroTekken Fighter',
