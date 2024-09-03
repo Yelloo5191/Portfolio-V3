@@ -24,6 +24,12 @@ const ProjectList = [
     href: 'https://melo-plum.vercel.app/',
   },
   {
+    name: 'Here for You',
+    description:
+      'Worked with a team of students on a platform that connects communities and provides a space for requesting support and resources.',
+    image: 'https://i.imgur.com/X7XzTOc.png',
+  },
+  {
     name: 'School/Programming Simplified',
     description:
       'Collaborated on creating a website and Discord bot for School Simplified and its CS division, Programming Simplified.',
@@ -58,7 +64,6 @@ const ProjectList = [
     image: 'https://i.imgur.com/p6A2bsr.png',
     href: 'https://slug-connect.vercel.app/',
   },
-  {},
   {
     name: 'Delaygram',
     description:
