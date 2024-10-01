@@ -1,14 +1,21 @@
 'use client';
 
-import { Box, Button, Grid, Heading, useColorMode } from '@chakra-ui/react';
-import { TrackballControls, AsciiRenderer } from '@react-three/drei';
-import { Canvas, extend, useFrame } from '@react-three/fiber';
+import { Box, Button, Grid, Heading } from '@chakra-ui/react';
+import {
+  TrackballControls,
+  useGLTF,
+  useTexture,
+  useAnimations,
+} from '@react-three/drei';
+import { Canvas, extend, useFrame, useLoader } from '@react-three/fiber';
 import { LazyMotion, domAnimation, useInView, motion } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useEffect, useRef, useState } from 'react';
-import type { Mesh } from 'three';
+import type * as THREE from 'three';
+
+let GLTFLoader;
 
 extend({ TrackballControls });
 
@@ -36,27 +43,52 @@ function TextElement({ element }: { element: string }) {
   );
 }
 
-const MyTorus = () => {
-  const torusRef = useRef<Mesh>(null!);
+const renderModel = (object) => {
+  return object.children.map((child) => {
+    if (child.isMesh) {
+      return (
+        <mesh
+          key={child.uuid}
+          geometry={child.geometry}
+          material={child.material}
+          position={child.position}
+          rotation={child.rotation}
+          scale={[0.5, 0.5, 0.5]}
+        />
+      );
+    }
 
+    // Recursively render any children the node may have
+    return renderModel(child);
+  });
+};
+
+const MyCube = (props) => {
+  // Use useGLTF to load the model and animations
+  const { scene, animations } = useGLTF('/cube/cube.glb');
+
+  // Load animations using useAnimations
+  const { actions } = useAnimations(animations);
+  console.log(animations);
+
+  const group = useRef<THREE.Group>();
+
+  // Play the first animation if it exists
+  useEffect(() => {
+    if (actions && actions[Object.keys(actions)[0]]) {
+      actions[Object.keys(actions)[0]].play();
+    }
+  }, [actions]);
+
+  // Add rotation animation to the group
   useFrame(() => {
-    if (torusRef.current) {
-      torusRef.current.rotation.x += 0.01;
-      torusRef.current.rotation.y += 0.01;
+    if (group.current) {
+      group.current.rotation.x += 0.005;
+      group.current.rotation.y += 0.005;
     }
   });
 
-  return (
-    <mesh
-      rotation={[-Math.PI / 2, 0, 0]}
-      position={[0, 0, 0]}
-      castShadow
-      ref={torusRef}
-    >
-      <torusGeometry args={[5, 2, 30, 200]} />
-      <meshStandardMaterial color="yellow" />
-    </mesh>
-  );
+  return <primitive ref={group} object={scene} {...props} />;
 };
 
 const Hero = () => {
@@ -65,7 +97,7 @@ const Hero = () => {
 
   const [count, setCount] = useState(0);
   const [text] = useState(['design.', 'develop.', 'create.']);
-  const { colorMode } = useColorMode();
+  //   const { colorMode } = useColorMode();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -98,16 +130,46 @@ const Hero = () => {
             width: '100%',
           }}
         >
-          {colorMode === 'light' ? (
+          {/* {colorMode === 'light' ? (
             <AsciiRenderer bgColor="white" fgColor="black" invert={false} />
           ) : (
             <AsciiRenderer bgColor="#1a202c" fgColor="white" invert={false} />
-          )}
+          )} */}
+
           <TrackballControls />
 
-          <ambientLight intensity={0.5} />
-          <pointLight position={[0, 0, 0]} intensity={4} />
-          <MyTorus />
+          <ambientLight intensity={100} />
+          <pointLight
+            position={[0, 0, 0]}
+            intensity={10}
+            rotation={[1, 0, 0]}
+          />
+          <pointLight
+            position={[10, 10, 10]}
+            intensity={10}
+            rotation={[1, 0, 0]}
+          />
+          <pointLight
+            position={[-10, -10, -10]}
+            intensity={10}
+            rotation={[1, 0, 0]}
+          />
+          <pointLight
+            position={[-10, -10, 10]}
+            intensity={10}
+            rotation={[0, 1, 0]}
+          />
+          <pointLight
+            position={[10, -10, -10]}
+            intensity={10}
+            rotation={[0, 1, 0]}
+          />
+          <pointLight
+            position={[10, -10, 10]}
+            intensity={10}
+            rotation={[0, 0, 1]}
+          />
+          <MyCube />
         </Canvas>
       </motion.div>
       <motion.div
