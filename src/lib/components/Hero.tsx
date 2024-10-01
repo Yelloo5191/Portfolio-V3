@@ -1,21 +1,15 @@
 'use client';
 
 import { Box, Button, Grid, Heading } from '@chakra-ui/react';
-import {
-  TrackballControls,
-  useGLTF,
-  useTexture,
-  useAnimations,
-} from '@react-three/drei';
-import { Canvas, extend, useFrame, useLoader } from '@react-three/fiber';
+import { TrackballControls, useGLTF, useAnimations } from '@react-three/drei';
+import { Canvas, extend, useFrame } from '@react-three/fiber';
 import { LazyMotion, domAnimation, useInView, motion } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import type { JSX } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import type * as THREE from 'three';
-
-let GLTFLoader;
 
 extend({ TrackballControls });
 
@@ -43,40 +37,50 @@ function TextElement({ element }: { element: string }) {
   );
 }
 
-const renderModel = (object) => {
-  return object.children.map((child) => {
-    if (child.isMesh) {
-      return (
-        <mesh
-          key={child.uuid}
-          geometry={child.geometry}
-          material={child.material}
-          position={child.position}
-          rotation={child.rotation}
-          scale={[0.5, 0.5, 0.5]}
-        />
-      );
-    }
+// const renderModel = (object) => {
+//   return object.children.map((child) => {
+//     if (child.isMesh) {
+//       return (
+//         <mesh
+//           key={child.uuid}
+//           geometry={child.geometry}
+//           material={child.material}
+//           position={child.position}
+//           rotation={child.rotation}
+//           scale={[0.5, 0.5, 0.5]}
+//         />
+//       );
+//     }
 
-    // Recursively render any children the node may have
-    return renderModel(child);
-  });
-};
+//     // Recursively render any children the node may have
+//     return renderModel(child);
+//   });
+// };
 
-const MyCube = (props) => {
+const MyCube = (
+  props?: JSX.IntrinsicAttributes & { object?: object } & {
+    [properties: string]: unknown;
+  }
+) => {
   // Use useGLTF to load the model and animations
   const { scene, animations } = useGLTF('/cube/cube.glb');
-
-  // Load animations using useAnimations
-  const { actions } = useAnimations(animations);
-  console.log(animations);
-
   const group = useRef<THREE.Group>();
 
-  // Play the first animation if it exists
+  // Load animations using useAnimations
+  const { actions } = useAnimations(animations, group);
+
+  // Play the animations if they exist
   useEffect(() => {
-    if (actions && actions[Object.keys(actions)[0]]) {
-      actions[Object.keys(actions)[0]].play();
+    if (actions && Object.keys(actions).length > 0) {
+      // iterate over the actions object and play them all
+      Object.values(actions).forEach((action) => {
+        if (action) {
+          action.play();
+        }
+      });
+    } else {
+      // eslint-disable-next-line no-console
+      console.warn('No animations found in the GLTF model.');
     }
   }, [actions]);
 
@@ -95,9 +99,38 @@ const Hero = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
 
+  const lightRef1 = useRef<THREE.PointLight>(null);
+  const lightRef2 = useRef<THREE.PointLight>(null);
+  const spotlightRef = useRef<THREE.SpotLight>(null);
+
   const [count, setCount] = useState(0);
   const [text] = useState(['design.', 'develop.', 'create.']);
   //   const { colorMode } = useColorMode();
+
+  useEffect(() => {
+    // move lights up and down
+    gsap.to(lightRef1.current?.position ?? {}, {
+      y: 10,
+      duration: 3,
+      repeat: -1,
+      yoyo: true,
+    });
+
+    gsap.to(lightRef2.current?.position ?? {}, {
+      y: -10,
+      duration: 3,
+      repeat: -1,
+      yoyo: true,
+    });
+
+    // have spotlight orbit around the cube
+    gsap.to(spotlightRef.current?.rotation ?? {}, {
+      y: Math.PI * 2,
+      duration: 2,
+      repeat: -1,
+      ease: 'none',
+    });
+  });
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -138,36 +171,14 @@ const Hero = () => {
 
           <TrackballControls />
 
-          <ambientLight intensity={100} />
-          <pointLight
-            position={[0, 0, 0]}
-            intensity={10}
-            rotation={[1, 0, 0]}
-          />
-          <pointLight
-            position={[10, 10, 10]}
-            intensity={10}
-            rotation={[1, 0, 0]}
-          />
-          <pointLight
-            position={[-10, -10, -10]}
-            intensity={10}
-            rotation={[1, 0, 0]}
-          />
-          <pointLight
-            position={[-10, -10, 10]}
-            intensity={10}
-            rotation={[0, 1, 0]}
-          />
-          <pointLight
-            position={[10, -10, -10]}
-            intensity={10}
-            rotation={[0, 1, 0]}
-          />
-          <pointLight
-            position={[10, -10, 10]}
-            intensity={10}
-            rotation={[0, 0, 1]}
+          <ambientLight intensity={10} color={0xffff00} />
+          <pointLight ref={lightRef1} position={[5, -10, 0]} intensity={1000} />
+          <pointLight ref={lightRef2} position={[0, 10, -5]} intensity={1000} />
+          <spotLight
+            position={[5, 5, 5]}
+            intensity={1000}
+            rotation={[1, 0, 1]}
+            ref={spotlightRef}
           />
           <MyCube />
         </Canvas>

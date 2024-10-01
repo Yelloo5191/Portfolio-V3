@@ -8,10 +8,10 @@ type RootLayoutProps = {
   children: React.ReactNode;
 };
 
-const APP_NAME = 'nextarter-chakra';
+const APP_NAME = 'Hovhannes Portfolio';
 
 export const metadata: Metadata = {
-  title: 'Hovhannes - Developer',
+  title: 'Hovhannes Muradyan - Developer',
   description: 'A website built to showcase my skills and abilities.',
   icons: [
     {
