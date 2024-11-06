@@ -2,7 +2,6 @@
 
 import {
   Box,
-  Button,
   Grid,
   Heading,
   Text,
@@ -28,6 +27,14 @@ const ProjectList = [
     description:
       'Worked with a team of students on a platform that connects communities and provides a space for requesting support and resources.',
     image: 'https://i.imgur.com/X7XzTOc.png',
+  },
+  {
+    name: 'Study Buddy',
+    description:
+      'Developed with a team of students for CalHacks 2024, Study Buddy is a platform designed to easily connect like-minded students in real time to provide a comfortable and productive environment',
+    image:
+      'https://media.discordapp.net/attachments/1114758944267718749/1303145371559788596/image.png?ex=672ab033&is=67295eb3&hm=11990a537eb22b27f96338c6245a73522e8997215caac8e757dc39bc25f480af&=&format=webp&quality=lossless&width=143&height=174',
+    href: 'https://devpost.com/software/studysync-gbo8fx',
   },
   {
     name: 'School/Programming Simplified',
@@ -90,36 +97,40 @@ const AnimatedProjectBox = ({ project, index, colorMode }: any) => {
       transition={{ duration: 0.5, delay: index * 0.2 }}
       whileInView={{ opacity: 1, x: 0 }}
     >
-      <Box
-        className="project"
-        border={1}
-        borderStyle="solid"
-        borderColor={
-          colorMode === 'light' ? 'secondary.light' : 'secondary.dark'
-        }
-        borderRadius="md"
-        overflow="hidden"
-        width="100%"
+      <NextLink
+        href={project?.href ? project.href : ''}
+        style={{
+          pointerEvents: !project?.href ? 'none' : 'auto',
+        }}
+        target="_blank"
+        passHref
       >
-        <Image
-          src={project.image}
-          alt={project.name}
-          border={5}
-          width={{ base: '100%', md: '256px' }}
-          height={{ base: 'auto', md: '256px' }}
-        />
-        <Box m={0} p={4} borderTopRadius={0} height={48}>
-          <Heading as="h2" size="md">
-            {project.name}
-          </Heading>
-          <Text>{project.description}</Text>
-          {project?.href && (
-            <NextLink href={project.href} target="_blank" passHref>
-              <Button>View Project</Button>
-            </NextLink>
-          )}
+        <Box
+          className="project"
+          border={1}
+          borderStyle="solid"
+          borderColor={
+            colorMode === 'light' ? 'secondary.light' : 'secondary.dark'
+          }
+          borderRadius="md"
+          overflow="hidden"
+          width="100%"
+        >
+          <Image
+            src={project.image}
+            alt={project.name}
+            border={5}
+            width={{ base: '100%', md: '256px' }}
+            height={{ base: 'auto', md: '256px' }}
+          />
+          <Box m={0} p={4} borderTopRadius={0} height={48}>
+            <Heading as="h2" size="md">
+              {project.name}
+            </Heading>
+            <Text>{project.description}</Text>
+          </Box>
         </Box>
-      </Box>
+      </NextLink>
     </motion.div>
   );
 };
