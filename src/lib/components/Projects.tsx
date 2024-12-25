@@ -32,8 +32,7 @@ const ProjectList = [
     name: 'Study Buddy',
     description:
       'Developed with a team of students for CalHacks 2024, Study Buddy is a platform designed to easily connect like-minded students in real time to provide a comfortable and productive environment',
-    image:
-      'https://media.discordapp.net/attachments/1114758944267718749/1303145371559788596/image.png?ex=672ab033&is=67295eb3&hm=11990a537eb22b27f96338c6245a73522e8997215caac8e757dc39bc25f480af&=&format=webp&quality=lossless&width=143&height=174',
+    image: 'https://i.imgur.com/kdocLk9.png',
     href: 'https://devpost.com/software/studysync-gbo8fx',
   },
   {

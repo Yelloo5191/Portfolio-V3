@@ -171,7 +171,7 @@ const Hero = () => {
 
           <TrackballControls />
 
-          <ambientLight intensity={10} color={0xffff00} />
+          <ambientLight intensity={0} color={0xffff00} />
           <pointLight ref={lightRef1} position={[5, -10, 0]} intensity={1000} />
           <pointLight ref={lightRef2} position={[0, 10, -5]} intensity={1000} />
           <spotLight
@@ -180,6 +180,12 @@ const Hero = () => {
             rotation={[1, 0, 1]}
             ref={spotlightRef}
           />
+          <directionalLight
+            intensity={500}
+            position={[0, 0, 5]}
+            rotation={[0, 1, 0]}
+          />
+          <directionalLight intensity={100} position={[5, 0, 0]} />
           <MyCube />
         </Canvas>
       </motion.div>
